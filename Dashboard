@@ -1,0 +1,205 @@
+<!-- templates/dashboard.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard | Student Budget Companion</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+    body {
+      margin: 0;
+      font-family: 'Verdana', sans-serif;
+      background: linear-gradient(to right, #f1f5f9, #e2e8f0);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    header {
+      background: linear-gradient(to right, #0f172a, #1e3a8a);
+      color: white;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 16px 40px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+    }
+    .header-left {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .header-left img {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+    }
+    .header-left h1 {
+      font-size: 20px;
+      margin: 0;
+    }
+    .header-right {
+      font-size: 14px;
+      color: #dbeafe;
+    }
+    .app-body {
+      display: flex;
+      flex: 1;
+      overflow: hidden;
+    }
+    .sidebar {
+      width: 240px;
+      background: linear-gradient(to bottom, #1e3a8a, #0f172a);
+      color: white;
+      padding: 20px;
+      box-shadow: 2px 0 10px rgba(0,0,0,0.1);
+    }
+    .sidebar h2 {
+      font-size: 22px;
+      margin-bottom: 20px;
+      text-align: center;
+    }
+    .nav-link {
+      padding: 12px 16px;
+      margin: 10px 0;
+      background-color: #2d4ea2;
+      border-radius: 10px;
+      text-decoration: none;
+      color: white;
+      display: block;
+      font-size: 15px;
+      font-weight: 500;
+      transition: all 0.3s ease;
+      cursor: pointer;
+    }
+    .nav-link:hover {
+      background-color: #60a5fa;
+      transform: translateX(4px);
+    }
+    .main {
+      flex: 1;
+      padding: 30px;
+      overflow-y: auto;
+    }
+    .section {
+      background: white;
+      border-radius: 16px;
+      padding: 25px;
+      margin-bottom: 30px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.05);
+    }
+    .section-content {
+      display: none;
+    }
+    .section-content.active {
+      display: block;
+      animation: fadeInUp 0.5s ease-in-out;
+    }
+    footer {
+      background: linear-gradient(to right, #1e3a8a, #0f172a);
+      color: white;
+      padding: 20px 40px;
+      text-align: center;
+      box-shadow: 0 -4px 12px rgba(0,0,0,0.2);
+    }
+    #welcome-screen {
+      position: fixed;
+      z-index: 9999;
+      width: 100%;
+      height: 100%;
+      background: rgba(255, 255, 255, 0.6);
+      backdrop-filter: blur(10px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      font-size: 24px;
+      color: #1e3a8a;
+      text-align: center;
+      animation: fadeIn 0.5s ease-in-out;
+    }
+    #welcome-screen p {
+      font-size: 16px;
+      margin-top: 12px;
+      color: #374151;
+    }
+    @keyframes fadeInUp {
+      0% { opacity: 0; transform: translateY(40px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+  </style>
+</head>
+<body oncontextmenu="return false">
+  <div id="welcome-screen">
+    <div>👋 Welcome, <span id="user-name">User</span>!</div>
+    <p>Last login: <span id="last-login">2025-03-29 14:22</span></p>
+  </div>
+
+  <header>
+    <div class="header-left">
+      <img src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png" alt="User Icon">
+      <h1>Student Budget Companion</h1>
+    </div>
+    <div class="header-right">
+      🚀 Personalized Dashboard | Budget, Save & Succeed
+    </div>
+  </header>
+
+  <div class="app-body">
+    <div class="sidebar">
+      <h2>Dashboard</h2>
+      <div class="nav-link" onclick="showSection('profile')">👤 Profile</div>
+      <div class="nav-link" onclick="showSection('budget')">💰 Set Budget</div>
+      <div class="nav-link" onclick="showSection('log-expense')">📝 Log Expense</div>
+      <div class="nav-link" onclick="showSection('view-expenses')">📂 View Expenses</div>
+      <div class="nav-link" onclick="showSection('category-analysis')">📊 Category Analysis</div>
+      <div class="nav-link" onclick="showSection('recommendations')">🧠 Smart Suggestions</div>
+      <div class="nav-link" onclick="showSection('chatbot')">💬 Assistant Bot</div>
+      <div class="nav-link" onclick="showSection('download-report')">📄 Download Report</div>
+      <div class="nav-link" onclick="showSection('send-email')">✉️ Send to Email</div>
+      <div class="nav-link" onclick="showSection('logout')">🔒 Logout</div>
+    </div>
+
+    <div class="main">
+      <div id="profile" class="section-content active section">This is the Profile section.</div>
+      <div id="budget" class="section-content section">This is the Set Budget section.</div>
+      <div id="log-expense" class="section-content section">This is the Log Expense section.</div>
+      <div id="view-expenses" class="section-content section">This is the View Expenses section.</div>
+      <div id="category-analysis" class="section-content section">This is the Category Analysis section.</div>
+      <div id="recommendations" class="section-content section">This is the Smart Suggestions section.</div>
+      <div id="chatbot" class="section-content section">This is the Assistant Bot section.</div>
+      <div id="download-report" class="section-content section">This is the Download Report section.</div>
+      <div id="send-email" class="section-content section">This is the Send to Email section.</div>
+      <div id="logout" class="section-content section">You have logged out.</div>
+    </div>
+  </div>
+
+  <footer>
+    <p> Desinged & Devloped by NextLinkers | G2 Hackfest - 2025 | KARE</p>
+  </footer>
+
+  <script>
+    function showSection(id) {
+      const sections = document.querySelectorAll('.section-content');
+      sections.forEach(section => section.classList.remove('active'));
+      const target = document.getElementById(id);
+      if (target) {
+        target.classList.add('active');
+      }
+    }
+    setTimeout(() => {
+      document.getElementById('welcome-screen').style.display = 'none';
+      document.querySelector('.app-body').style.display = 'flex';
+    }, 5000);
+    document.getElementById('user-name').innerText = localStorage.getItem('userName') || 'User';
+    document.getElementById('last-login').innerText = localStorage.getItem('lastLogin') || 'Today';
+  </script>
+</body>
+</html>
