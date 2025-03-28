@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Welcome | Student Budget Companion</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Verdana', sans-serif;
+      background-color: #f9fafb;
+      color: #1e293b;
+    }
+
+    header, footer {
+      background-color: #1e3a8a;
+      color: #fff;
+      text-align: left;
+      padding: 24px 48px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+    }
+
+    .main-section {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 60px;
+      max-width: 1200px;
+      margin: 60px auto;
+      padding: 0 48px;
+    }
+
+    .text-content {
+      flex: 1;
+      min-width: 300px;
+      max-width: 500px;
+    }
+
+    .text-content h1 {
+      font-size: 42px;
+      font-weight: 700;
+      margin-bottom: 16px;
+      color: #1e3a8a;
+    }
+
+    .text-content p {
+      font-size: 18px;
+      line-height: 1.6;
+      margin-bottom: 28px;
+    }
+
+    .login-box {
+      flex: 1;
+      min-width: 300px;
+      max-width: 400px;
+      background: #ffffff;
+      padding: 40px;
+      border-radius: 20px;
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.1);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    form {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .login-title {
+      font-size: 22px;
+      font-weight: bold;
+      margin-bottom: 10px;
+      color: #1e3a8a;
+      text-align: center;
+      width: 100%;
+    }
+
+    .ip-display {
+      width: 100%;
+      text-align: center;
+      font-size: 14px;
+      color: #374151;
+      margin-bottom: 16px;
+    }
+
+    input[type="text"],
+    input[type="password"] {
+      width: 100%;
+      padding: 12px;
+      margin-bottom: 16px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      font-size: 15px;
+    }
+
+    input {
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+    }
+
+    input::selection {
+      background: none;
+    }
+
+    input::-moz-selection {
+      background: none;
+    }
+
+    input::-webkit-selection {
+      background: none;
+    }
+
+    input::-webkit-user-drag {
+      display: none;
+    }
+
+    .btn-start {
+      width: 100%;
+      padding: 14px 32px;
+      background-color: #2563eb;
+      color: white;
+      font-size: 17px;
+      font-weight: bold;
+      border: none;
+      border-radius: 12px;
+      cursor: pointer;
+      text-decoration: none;
+      transition: background-color 0.3s ease, transform 0.2s ease;
+    }
+
+    .btn-start:hover {
+      background-color: #1e40af;
+      transform: translateY(-2px);
+    }
+
+    .login-details {
+      margin-top: 24px;
+      background: #f1f5f9;
+      border-radius: 14px;
+      padding: 20px;
+      font-size: 15px;
+      line-height: 1.5;
+      text-align: center;
+    }
+
+    .login-details b {
+      color: #111827;
+    }
+
+    footer p {
+      font-size: 14px;
+      margin: 0;
+    }
+  </style>
+  <script>
+    document.addEventListener('contextmenu', event => event.preventDefault());
+
+    function validateInput(input) {
+      const pattern = /^[a-zA-Z0-9@.]*$/;
+      if (!pattern.test(input.value)) {
+        alert("Special characters are not allowed.");
+        input.value = input.value.replace(/[^a-zA-Z0-9@.]/g, "");
+      }
+    }
+
+    function fetchIP() {
+      fetch('https://api.ipify.org?format=json')
+        .then(response => response.json())
+        .then(data => {
+          document.getElementById('ip-address').textContent = `IP Address: ${data.ip}`;
+        })
+        .catch(() => {
+          document.getElementById('ip-address').textContent = "IP Address: Unavailable";
+        });
+    }
+
+    window.onload = fetchIP;
+  </script>
+</head>
+<body>
+  <header><h2 style="margin: 0;">Student Budget Companion</h2><p style="margin: 0;">Redefining how students manage money — with intelligence and care.</p></header>
+
+  <div class="main-section">
+    <div class="text-content">
+      <h1>Welcome to Your Smart Budget Buddy</h1>
+      <p>
+        Empower yourself with intelligent financial tracking, budgeting tips, and personalized student resource suggestions — all in one place. <br />
+        Designed for real student needs. Backed by smart technology.
+      </p>
+    </div>
+    <div class="login-box">
+      <div class="login-title">User Login</div>
+      <div class="ip-display" id="ip-address">Fetching IP address...</div>
+      <form method="POST" action="/login">
+        <input type="text" name="email" placeholder="Enter User ID" onkeyup="validateInput(this)" onpaste="return false" ondrop="return false" required>
+        <input type="password" name="password" placeholder="Enter Passcode" onkeyup="validateInput(this)" onpaste="return false" ondrop="return false" required>
+        <button type="submit" class="btn-start">Login</button>
+      </form>
+      <div class="login-details">
+        <p><b>Note:</b> When you log in, your <b>User ID</b>, <b>Login Time</b>, and <b>IP Address</b> will be securely recorded for your protection.</p>
+        <p>Forgot your passcode? Contact the <b>Support Desk</b> for quick assistance.</p>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+   <p> Desinged & Devloped by NextLinkers | G2 Hackfest - 2025 | KARE</p>
+  </footer>
+</body>
+</html>
